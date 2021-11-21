@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">JsonCrypt</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="button_file">Select File</string>
+    <string name="text_password">Password</string>
+    <string name="button_encrypt">Encrypt</string>
+    <string name="button_decrypt">Decrypt</string>
+    <string name="action_erase">Erase Files</string>
+    <string name="action_close">Lock and Leave</string>
+    <string name="input_searchvalues">Search values...</string>
+    <string name="message_arguments_error">Please fill out everything first.</string>
+    <string name="message_encrypt_error">Could not encrypt.</string>
+    <string name="message_decrypt_error">Could not decrypt.</string>
+</resources>

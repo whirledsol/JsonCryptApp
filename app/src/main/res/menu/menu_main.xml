@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.whirledsol.jsoncrypt.MainActivity">
+    <item
+        android:id="@+id/action_erase"
+        android:orderInCategory="800"
+        android:title="@string/action_erase"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_close"
+        android:orderInCategory="900"
+        android:title="@string/action_close"
+        app:showAsAction="never" />
+</menu>
