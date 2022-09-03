@@ -14,7 +14,7 @@
         android:orientation="horizontal">
     <EditText
         android:id="@+id/input_searchvalues"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:singleLine="true"
         android:layout_weight="1"

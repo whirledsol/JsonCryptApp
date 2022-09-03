@@ -21,10 +21,23 @@ class DecryptFragment: MainFragment() {
 
         super.onCreateView(inflater, container, savedInstanceState)
 
-
         return inflater.inflate(R.layout.fragment_decrypt, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tryGetSingleFile()
+    }
+
+    /**
+     * tryGetSingleFile: if only one file, just select it. saves time. ;)
+     */
+    private fun tryGetSingleFile(){
+        val files = _service.getEncryptedFiles();
+        if(files.count() == 1){
+            onFileSelected(_service.getEncryptedFile(files.first().name))
+        }
+    }
 
     /**
      * onSelectFile

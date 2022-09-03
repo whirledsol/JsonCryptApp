@@ -5,10 +5,11 @@
       <map>
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/activity_result.xml" value="0.20885416666666667" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/content_main.xml" value="0.20885416666666667" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/content_result.xml" value="0.20885416666666667" />
-        <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/fragment_decrypt.xml" value="0.2015625" />
+        <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/fragment_decrypt.xml" value="0.25" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/fragment_encrypt.xml" value="0.2015625" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/fragment_first.xml" value="0.371875" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/fragment_second.xml" value="0.28532608695652173" />

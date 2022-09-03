@@ -1,6 +1,5 @@
 package me.whirledsol.jsoncrypt
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -29,14 +28,10 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var _input_searchvalues : EditText
     private lateinit var _button_search : ImageButton
     private lateinit var _timer : CountDownTimer
-    private lateinit var _self: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_result)
-
-        _self = this;
-
 
         val json: String? = intent.extras?.getString("json");
         try {
@@ -72,11 +67,7 @@ class ResultActivity : AppCompatActivity() {
         })
 
         //second method to search
-        _button_search.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(v: View?) {
-                onSearch();
-            }
-        })
+        _button_search.setOnClickListener { onSearch(); }
 
         setViewerJson(_json)
 
@@ -84,14 +75,14 @@ class ResultActivity : AppCompatActivity() {
         _timer = object : CountDownTimer(TIMEOUT_DURATION, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 if(millisUntilFinished == TIMEOUT_DURATION - TIMEOUT_WARNING_DURATION){
-                    Toast.makeText(_self,"You will be logged out in ${TIMEOUT_WARNING_DURATION/1000} seconds.",Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ResultActivity,"You will be logged out in ${TIMEOUT_WARNING_DURATION/1000} seconds.",Toast.LENGTH_SHORT)
                 }
             }
-
             override fun onFinish() {
                 onClose()
             }
         }
+
     }
 
 
