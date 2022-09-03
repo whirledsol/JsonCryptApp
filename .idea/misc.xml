@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/activity_result.xml" value="0.20885416666666667" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/content_main.xml" value="0.20885416666666667" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/content_result.xml" value="0.20885416666666667" />
@@ -11,6 +13,7 @@
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/fragment_first.xml" value="0.371875" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/layout/fragment_second.xml" value="0.28532608695652173" />
         <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/menu/menu_main.xml" value="0.371875" />
+        <entry key="..\:/Users/astro/AndroidStudioProjects/JsonCrypt/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/astro/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/select_dialog_singlechoice.xml" value="0.20885416666666667" />
       </map>
     </option>

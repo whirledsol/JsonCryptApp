@@ -13,7 +13,6 @@ class JsonUtil {
         for(key in parentObj.keys())
         {
             var value = parentObj.get(key);
-            //TODO: JSONArray handling
             if(value is JSONObject){
                 var result = searchJsonNode(value as JSONObject,searchValue)
                 if(result != null){return result;}

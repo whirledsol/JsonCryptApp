@@ -14,10 +14,18 @@
         android:orientation="horizontal">
     <EditText
         android:id="@+id/input_searchvalues"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
         android:singleLine="true"
+        android:layout_weight="1"
         android:hint="@string/input_searchvalues"/>
+
+        <ImageButton
+            android:id="@+id/button_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"

@@ -68,6 +68,7 @@ class DecryptFragment: MainFragment() {
 
         try {
             var json = _service.decryptFile(_filePath,password)
+            _inputPassword.setText(""); //clear ASAP
             navigate(json)
         }
         catch(ex: Exception){

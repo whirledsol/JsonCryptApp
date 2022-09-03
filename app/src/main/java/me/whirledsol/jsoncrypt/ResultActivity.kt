@@ -1,58 +1,97 @@
 package me.whirledsol.jsoncrypt
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 
+
+
+
 class ResultActivity : AppCompatActivity() {
+
+    private var TIMEOUT_DURATION : Long = 10*60*1000;
+    private var TIMEOUT_WARNING_DURATION: Long = 1*60*1000
 
     private lateinit var _json: JSONObject;
     private lateinit var _jsonviewer: TextView
     private lateinit var _input_searchvalues : EditText
+    private lateinit var _button_search : ImageButton
+    private lateinit var _timer : CountDownTimer
+    private lateinit var _self: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_result)
 
+        _self = this;
+
+
         val json: String? = intent.extras?.getString("json");
         try {
             _json = JSONObject(json)
-
         }
         catch(ex: Exception){
-            navigate()
-            return
+            navigate();
+            return;
         }
 
-        _jsonviewer = findViewById<TextView>(R.id.jsonviewer)
-        _input_searchvalues = findViewById<EditText>(R.id.input_searchvalues)
-        _input_searchvalues.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
 
+        _jsonviewer = findViewById<TextView>(R.id.jsonviewer);
+        _input_searchvalues = findViewById<EditText>(R.id.input_searchvalues);
+        _button_search = findViewById<ImageButton>(R.id.button_search)
+
+        //doesn't work on OnePlus
+        _input_searchvalues.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
         _input_searchvalues.setOnKeyListener(object : View.OnKeyListener{
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
 
                 if(!shouldFilter(_input_searchvalues.text)){
-                    setViewerJson(_json); return true
+                    setViewerJson(_json);
+                    return true;
                 }
                 // If the event is a key-down event on the "enter" button
-                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER)
+                if (keyCode == KeyEvent.KEYCODE_ENTER)
                 {
-                    onSearch()
+                    onSearch();
+                    return true;
                 }
-                return false
+                return false;
+            }
+        })
+
+        //second method to search
+        _button_search.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                onSearch();
             }
         })
 
         setViewerJson(_json)
 
+        //setup timeout
+        _timer = object : CountDownTimer(TIMEOUT_DURATION, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if(millisUntilFinished == TIMEOUT_DURATION - TIMEOUT_WARNING_DURATION){
+                    Toast.makeText(_self,"You will be logged out in ${TIMEOUT_WARNING_DURATION/1000} seconds.",Toast.LENGTH_SHORT)
+                }
+            }
+
+            override fun onFinish() {
+                onClose()
+            }
+        }
     }
 
 
@@ -98,5 +137,20 @@ class ResultActivity : AppCompatActivity() {
 
     fun onClose() {
         finishAffinity();
+    }
+
+    override fun onPause() {
+        super.onPause()
+        _timer?.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        _timer?.start()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        _timer?.cancel()
     }
 }
