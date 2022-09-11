@@ -33,7 +33,7 @@ class DecryptFragment: MainFragment() {
      * tryGetSingleFile: if only one file, just select it. saves time. ;)
      */
     private fun tryGetSingleFile(){
-        val files = _service.getEncryptedFiles();
+        val files = _service.getEncryptedFiles()
         if(files.count() == 1){
             onFileSelected(_service.getEncryptedFile(files.first().name))
         }
@@ -43,7 +43,7 @@ class DecryptFragment: MainFragment() {
      * onSelectFile
      */
     override fun onSelectFile(){
-        val files = _service.getEncryptedFiles();
+        val files = _service.getEncryptedFiles()
 
         if(files.isEmpty()) {
             Toast.makeText(this.requireContext(),"No encrypted files.",Toast.LENGTH_SHORT)
@@ -71,21 +71,21 @@ class DecryptFragment: MainFragment() {
      * onDecrypt
      */
     override fun onExecute(){
-        _textMsg.text = "";
+        _textMsg.text = ""
 
         if(!validate()) {
-            _textMsg.text = resources.getText(R.string.message_arguments_error);
-            return;
+            _textMsg.text = resources.getText(R.string.message_arguments_error)
+            return
         }
-        var password = _inputPassword.text.toString();
+        var password = _inputPassword.text.toString()
 
         try {
             var json = _service.decryptFile(_filePath,password)
-            _inputPassword.setText(""); //clear ASAP
+            _inputPassword.setText("") //clear ASAP
             navigate(json)
         }
         catch(ex: Exception){
-            _textMsg.text = "${resources.getText(R.string.message_decrypt_error)}: ${ex.message}";
+            _textMsg.text = "${resources.getText(R.string.message_decrypt_error)}: ${ex.message}"
             return
         }
 

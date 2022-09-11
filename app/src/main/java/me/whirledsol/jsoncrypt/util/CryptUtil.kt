@@ -1,9 +1,10 @@
-package me.whirledsol.jsoncrypt
+package me.whirledsol.jsoncrypt.util
 
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import androidx.security.crypto.EncryptedFile
+import androidx.security.crypto.MasterKey
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.charset.StandardCharsets
@@ -21,7 +22,7 @@ class CryptUtil(var _context: Context) {
      */
     fun getEncryptedFiles(): List<File>{
         val externalDir = _context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        var files = externalDir!!.listFiles();
+        var files = externalDir!!.listFiles()
         return files.toList().sortedByDescending { it.lastModified() }
     }
 
@@ -79,14 +80,17 @@ class CryptUtil(var _context: Context) {
         val encFileName : String = originalFile.nameWithoutExtension + ".enc.json"
         val externalDir = _context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         val encodedFile = File(externalDir,encFileName)
+        val masterKey = MasterKey.Builder(_context,password)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
         //delete if exists
         if (encodedFile.exists()) { encodedFile.delete(); }
 
         val encryptedFile = EncryptedFile.Builder(
-            encodedFile,
             _context,
-            password,
+            encodedFile,
+            masterKey,
             EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
         ).build()
 
@@ -101,10 +105,10 @@ class CryptUtil(var _context: Context) {
         }
 
         //delete original
-        //_context.contentResolver.delete (path,null ,null ); //TODO requires grantUriPermission
-        //originalFile.delete() //no work
+        //_context.contentResolver.delete (path,null ,null ); //requires grantUriPermission
+        //originalFile.delete() //not that simple
 
-        return encodedFile;
+        return encodedFile
     }
 
     /**

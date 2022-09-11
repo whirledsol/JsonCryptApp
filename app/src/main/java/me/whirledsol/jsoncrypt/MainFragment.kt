@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import me.whirledsol.jsoncrypt.util.CryptUtil
 
 
 open abstract class MainFragment : Fragment() {
@@ -37,7 +38,7 @@ open abstract class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return null;
+        return null
     }
 
     /**
@@ -52,7 +53,7 @@ open abstract class MainFragment : Fragment() {
         _buttonPeek = view.findViewById<ImageButton>(R.id.button_peek)
         _buttonExecute = view.findViewById<Button>(R.id.button_execute)
 
-        _buttonFile!!.setOnClickListener { view ->
+        _buttonFile.setOnClickListener { view ->
             onSelectFile()
         }
         _buttonExecute.setOnClickListener { view ->
@@ -76,8 +77,8 @@ open abstract class MainFragment : Fragment() {
      * onFileSelected
      */
     fun onFileSelected(uri: Uri) {
-        _filePath = uri;
-        _textFile.text = _filePath.lastPathSegment.toString();
+        _filePath = uri
+        _textFile.text = _filePath.lastPathSegment.toString()
         _inputPassword.requestFocus()
     }
 
@@ -85,7 +86,7 @@ open abstract class MainFragment : Fragment() {
      * Validate
      */
     fun validate(): Boolean {
-        return _filePath != null && !_inputPassword.text?.toString()?.isNullOrBlank()!!;
+        return _filePath != null && !_inputPassword.text?.toString()?.isNullOrBlank()!!
     }
 
     /**

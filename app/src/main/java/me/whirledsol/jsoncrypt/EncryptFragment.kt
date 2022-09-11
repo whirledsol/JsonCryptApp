@@ -27,7 +27,7 @@ class EncryptFragment: MainFragment() {
             if (result.resultCode == Activity.RESULT_OK && result.data?.data is Uri) {
                 onFileSelected(result.data?.data as Uri)
             }
-        };
+        }
         return inflater.inflate(R.layout.fragment_encrypt, container, false)
     }
 
@@ -35,8 +35,8 @@ class EncryptFragment: MainFragment() {
      * onSelectFile
      */
     override fun onSelectFile(){
-        val intent = Intent().setType("*/*").setAction(Intent.ACTION_GET_CONTENT);
-        _fileChoser!!.launch(Intent.createChooser(intent, "Select a file"))
+        val intent = Intent().setType("*/*").setAction(Intent.ACTION_GET_CONTENT)
+        _fileChoser.launch(Intent.createChooser(intent, "Select a file"))
     }
 
 
@@ -46,21 +46,21 @@ class EncryptFragment: MainFragment() {
      */
     override fun onExecute(){
 
-        _textMsg.text = "";
+        _textMsg.text = ""
 
         if(!validate()) {
-            _textMsg.text = resources.getText(R.string.message_arguments_error);
-            return;
+            _textMsg.text = resources.getText(R.string.message_arguments_error)
+            return
         }
 
-        val password = _inputPassword.text.toString();
+        val password = _inputPassword.text.toString()
 
         try {
-            var path = _service!!.encryptFile(_filePath!!, password)
-            _textMsg.text = "File encrypted to ${path.name}. Please delete the original file.";
+            var path = _service.encryptFile(_filePath, password)
+            _textMsg.text = "File encrypted to ${path.name}. Please delete the original file."
         }
         catch(ex: Exception){
-            _textMsg.text = resources.getText(R.string.message_encrypt_error);
+            _textMsg.text = resources.getText(R.string.message_encrypt_error)
             return
         }
 

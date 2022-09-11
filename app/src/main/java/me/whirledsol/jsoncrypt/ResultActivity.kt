@@ -13,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import me.whirledsol.jsoncrypt.util.JsonUtil
 import org.json.JSONObject
 
 
@@ -20,10 +21,10 @@ import org.json.JSONObject
 
 class ResultActivity : AppCompatActivity() {
 
-    private var TIMEOUT_DURATION : Long = 10*60*1000;
+    private var TIMEOUT_DURATION : Long = 10*60*1000
     private var TIMEOUT_WARNING_DURATION: Long = 1*60*1000
 
-    private lateinit var _json: JSONObject;
+    private lateinit var _json: JSONObject
     private lateinit var _jsonviewer: TextView
     private lateinit var _input_searchvalues : EditText
     private lateinit var _button_search : ImageButton
@@ -33,36 +34,36 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_result)
 
-        val json: String? = intent.extras?.getString("json");
+        val json: String? = intent.extras?.getString("json")
         try {
             _json = JSONObject(json)
         }
         catch(ex: Exception){
-            navigate();
-            return;
+            navigate()
+            return
         }
 
 
-        _jsonviewer = findViewById<TextView>(R.id.jsonviewer);
-        _input_searchvalues = findViewById<EditText>(R.id.input_searchvalues);
+        _jsonviewer = findViewById<TextView>(R.id.jsonviewer)
+        _input_searchvalues = findViewById<EditText>(R.id.input_searchvalues)
         _button_search = findViewById<ImageButton>(R.id.button_search)
 
         //doesn't work on OnePlus
-        _input_searchvalues.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER);
+        _input_searchvalues.setImeActionLabel("Search", KeyEvent.KEYCODE_ENTER)
         _input_searchvalues.setOnKeyListener(object : View.OnKeyListener{
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
 
                 if(!shouldFilter(_input_searchvalues.text)){
-                    setViewerJson(_json);
-                    return true;
+                    setViewerJson(_json)
+                    return true
                 }
                 // If the event is a key-down event on the "enter" button
                 if (keyCode == KeyEvent.KEYCODE_ENTER)
                 {
-                    onSearch();
-                    return true;
+                    onSearch()
+                    return true
                 }
-                return false;
+                return false
             }
         })
 
@@ -79,7 +80,7 @@ class ResultActivity : AppCompatActivity() {
                 }
             }
             override fun onFinish() {
-                onClose()
+                ExitActivity.exitApplication(this@ResultActivity)
             }
         }
 
@@ -92,11 +93,11 @@ class ResultActivity : AppCompatActivity() {
 
 
     fun shouldFilter(searchValue: Editable): Boolean{
-        return ((searchValue ?: "").trim().length > 1 );
+        return (searchValue.trim().length > 1 )
     }
 
     fun onSearch(){
-        var searchValue = _input_searchvalues.text;
+        var searchValue = _input_searchvalues.text
         if(!shouldFilter(searchValue)){return;}
         var json = JsonUtil().searchJsonNode(_json,searchValue.toString())
         _jsonviewer.text = json?.toString(4)?: "{}"
@@ -127,21 +128,21 @@ class ResultActivity : AppCompatActivity() {
     }
 
     fun onClose() {
-        finishAffinity();
+        ExitActivity.exitApplication(this@ResultActivity)
     }
 
     override fun onPause() {
         super.onPause()
-        _timer?.start()
+        _timer.start()
     }
 
     override fun onStop() {
         super.onStop()
-        _timer?.start()
+        _timer.start()
     }
 
     override fun onResume() {
         super.onResume()
-        _timer?.cancel()
+        _timer.cancel()
     }
 }
