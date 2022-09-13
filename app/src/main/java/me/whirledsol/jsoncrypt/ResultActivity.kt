@@ -36,7 +36,7 @@ class ResultActivity : AppCompatActivity() {
 
         val json: String? = intent.extras?.getString("json")
         try {
-            _json = JSONObject(json)
+            _json = JsonUtil().safeCastJsonObject(json)
         }
         catch(ex: Exception){
             navigate()

@@ -52,11 +52,14 @@ class CryptUtil(var _context: Context) {
         val externalDir = _context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         val file = File(externalDir,treeFile.name)
         if(!file.exists()){throw Exception("File was not encoded by this app.")}
+        val masterKey = MasterKey.Builder(_context,password)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
         val encryptedFile = EncryptedFile.Builder(
-            file,
             _context,
-            password,
+            file,
+            masterKey,
             EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
         ).build()
 

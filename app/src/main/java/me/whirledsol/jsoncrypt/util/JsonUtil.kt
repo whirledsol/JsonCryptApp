@@ -1,9 +1,30 @@
 package me.whirledsol.jsoncrypt.util
 
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 
+
 class JsonUtil {
+
+    /**
+     * safeCastJsonObject
+     */
+    fun safeCastJsonObject(jsonStr: String?): JSONObject
+    {
+        try {
+            return JSONObject(jsonStr)
+        } catch (ex: JSONException) {
+            var wrapper = JSONObject()
+            try {
+                wrapper.put("array", JSONArray(jsonStr))
+                return wrapper;
+            } catch (ex1: JSONException) {
+                wrapper.put("content", jsonStr ?: "")
+            }
+            return wrapper
+        }
+    }
 
     /**
      * Navigate to node
