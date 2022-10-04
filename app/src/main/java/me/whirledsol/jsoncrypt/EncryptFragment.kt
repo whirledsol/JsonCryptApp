@@ -31,6 +31,12 @@ class EncryptFragment: MainFragment() {
         return inflater.inflate(R.layout.fragment_encrypt, container, false)
     }
 
+    override fun validate(): Boolean{
+        return super.validate()
+    }
+
+
+
     /**
      * onSelectFile
      */

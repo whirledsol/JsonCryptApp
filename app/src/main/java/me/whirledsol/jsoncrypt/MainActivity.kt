@@ -1,19 +1,14 @@
 package me.whirledsol.jsoncrypt
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import me.whirledsol.jsoncrypt.util.CryptUtil
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : JsonCryptActivity() {
 
     private lateinit var _pager: ViewPager2 // creating object of ViewPager
     private lateinit var _tabLayout: TabLayout  // creating object of TabLayout
@@ -28,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        setSupportActionBar(findViewById(R.id.toolbar)) //must be on first activity only
 
         // set the references of the declared objects above
         _pager = findViewById(R.id.pager)
@@ -37,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         _pager.adapter =  ScreenSlidePagerAdapter(this)
 
-        setSupportActionBar( findViewById(R.id.toolbar))
 
 
         // bind the viewPager with the TabLayout.
@@ -47,42 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_close -> {onClose(); return true}
-            R.id.action_erase -> {onErase(); return true}
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-
-    fun onClose() {
-        ExitActivity.exitApplication(this@MainActivity);
-    }
-
-    fun onErase(){
-        val builder = AlertDialog.Builder(this@MainActivity)
-        builder.setMessage("Are you sure you want to erase all encrypted files?")
-            .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, id ->
-                CryptUtil(applicationContext).eraseAll()
-            }
-            .setNegativeButton("No") { dialog, _ ->
-                // Dismiss the dialog
-                dialog.dismiss()
-            }
-        val alert = builder.create()
-        alert.show()
-    }
 
     override fun onBackPressed() {
         if (_pager.currentItem == 0) {

@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import me.whirledsol.jsoncrypt.util.CryptUtil
 
 
-open abstract class MainFragment : Fragment() {
+abstract class MainFragment : Fragment() {
 
     protected lateinit var _buttonFile: Button
     protected lateinit var _textFile: TextView
@@ -85,7 +85,7 @@ open abstract class MainFragment : Fragment() {
     /**
      * Validate
      */
-    fun validate(): Boolean {
+    open fun validate(): Boolean {
         return _filePath != null && !_inputPassword.text?.toString()?.isNullOrBlank()!!
     }
 
@@ -104,11 +104,18 @@ open abstract class MainFragment : Fragment() {
      */
     private fun onPeek(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
+            //PEEK
             _inputPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             return true
         }
-        _inputPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD //129
-        return true
+
+        if (event.action == MotionEvent.ACTION_UP) {
+            //HIDE
+            _inputPassword.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD //129
+            return true
+        }
+        return false
     }
 
 }

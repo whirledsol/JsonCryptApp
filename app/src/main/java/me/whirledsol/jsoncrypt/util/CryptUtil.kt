@@ -78,7 +78,7 @@ class CryptUtil(var _context: Context) {
      * encryptFile
      */
     fun encryptFile(path: Uri, password: String): File{
-
+        //TODO: replace with CipherInputStream
         var originalFile = File(path.path)
         val encFileName : String = originalFile.nameWithoutExtension + ".enc.json"
         val externalDir = _context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)

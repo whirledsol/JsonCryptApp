@@ -2,7 +2,7 @@
 <img src="design/logo_192.png"/>
 </div>
 
-# JsonCrypt
+# JsonCryptApp
 Easily encrypt and decrypt json content on your Android device.
 
 ## 📱 Download

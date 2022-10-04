@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+/**
+ * Lovely hack which is used to clear the app from the android history
+ */
 public class ExitActivity extends Activity
 {
     @Override protected void onCreate(Bundle savedInstanceState)
