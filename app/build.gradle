@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "me.whirledsol.jsoncrypt"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 33
         versionCode 4
         versionName "0.4"
