@@ -11,7 +11,7 @@ import java.io.File
 class FileUtil(var _context: Context) {
 
     @SuppressLint("Range")
-    fun resolveFilenameFromUri(uri: Uri): String? {
+    fun resolveFilenameFromUri(uri: Uri, includeExt: Boolean = true): String? {
 
         val uriString = uri.toString();
         val myFile = File(uriString);
@@ -30,6 +30,10 @@ class FileUtil(var _context: Context) {
             }
         } else if (uriString.startsWith("file://")) {
             displayName = myFile.getName();
+        }
+
+        if(!includeExt) {
+            displayName = if(displayName?.contains(".") == true) displayName.substring(0, displayName.lastIndexOf('.')) else displayName
         }
         return displayName;
     }

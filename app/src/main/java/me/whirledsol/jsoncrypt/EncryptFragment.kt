@@ -35,13 +35,20 @@ class EncryptFragment: MainFragment() {
         return super.validate()
     }
 
-
+    /**
+     * onFileSelected
+     */
+    override fun onFileSelected(uri: Uri) {
+        _filePath = uri
+        _textFile.text = _fileUtil.resolveFilenameFromUri(_filePath)
+        _inputPassword.requestFocus()
+    }
 
     /**
      * onSelectFile
      */
     override fun onSelectFile(){
-        val intent = Intent().setType("*/*").setAction(Intent.ACTION_GET_CONTENT)
+        val intent = Intent().setType("*/*").setAction(Intent.ACTION_OPEN_DOCUMENT)
         _fileChoser.launch(Intent.createChooser(intent, "Select a file"))
     }
 
@@ -62,8 +69,9 @@ class EncryptFragment: MainFragment() {
         val password = _inputPassword.text.toString()
 
         try {
-            var path = _service.encryptFile(_filePath, password)
-            _textMsg.text = "File encrypted to ${path.name}. Please delete the original file."
+            //val file = _service.encryptFile(_filePath, password)
+            val file = _cryptUtil.encryptFile(_filePath,password)
+            _textMsg.text = "File encrypted to ${file.name}. Please delete the original file."
         }
         catch(ex: Exception){
             _textMsg.text = resources.getText(R.string.message_encrypt_error)

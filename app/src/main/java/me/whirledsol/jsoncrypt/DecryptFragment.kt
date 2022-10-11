@@ -1,5 +1,6 @@
 package me.whirledsol.jsoncrypt
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,9 +34,9 @@ class DecryptFragment: MainFragment() {
      * tryGetSingleFile: if only one file, just select it. saves time. ;)
      */
     private fun tryGetSingleFile(){
-        val files = _service.getEncryptedFiles()
+        val files = _cryptUtil.getEncryptedFiles()
         if(files.count() == 1){
-            onFileSelected(_service.getEncryptedFile(files.first().name))
+            onFileSelected(_cryptUtil.getEncryptedFile(files.first().name))
         }
     }
 
@@ -43,7 +44,7 @@ class DecryptFragment: MainFragment() {
      * onSelectFile
      */
     override fun onSelectFile(){
-        val files = _service.getEncryptedFiles()
+        val files = _cryptUtil.getEncryptedFiles()
 
         if(files.isEmpty()) {
             Toast.makeText(this.requireContext(),"No encrypted files.",Toast.LENGTH_SHORT)
@@ -60,12 +61,19 @@ class DecryptFragment: MainFragment() {
 
         dialogBuilder.setAdapter(arrayAdapter) { _, which ->
             var filename =  arrayAdapter.getItem(which)!!
-            onFileSelected(_service.getEncryptedFile(filename))
+            onFileSelected(_cryptUtil.getEncryptedFile(filename))
         }
         dialogBuilder.show()
     }
 
-
+    /**
+     * onFileSelected
+     */
+    override fun onFileSelected(uri: Uri) {
+        _filePath = uri
+        _textFile.text = _filePath.lastPathSegment.toString()
+        _inputPassword.requestFocus()
+    }
 
     /**
      * onDecrypt
@@ -80,7 +88,7 @@ class DecryptFragment: MainFragment() {
         var password = _inputPassword.text.toString()
 
         try {
-            var json = _service.decryptFile(_filePath,password)
+            var json = _cryptUtil.decryptFile(_filePath,password)
             _inputPassword.setText("") //clear ASAP
             navigate(json)
         }

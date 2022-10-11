@@ -14,6 +14,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import me.whirledsol.jsoncrypt.util.CryptUtil
+import me.whirledsol.jsoncrypt.util.FileUtil
 
 
 abstract class MainFragment : Fragment() {
@@ -27,7 +28,8 @@ abstract class MainFragment : Fragment() {
 
 
     protected lateinit var _filePath: Uri
-    protected lateinit var _service: CryptUtil
+    protected lateinit var _cryptUtil: CryptUtil
+    protected lateinit var _fileUtil: FileUtil
 
     /**
      * onCreateView
@@ -45,7 +47,8 @@ abstract class MainFragment : Fragment() {
      * onViewCreated
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        _service = CryptUtil(view.context)
+        _cryptUtil = CryptUtil(view.context)
+        _fileUtil = FileUtil(view.context)
         _buttonFile = view.findViewById<Button>(R.id.button_file)
         _textFile = view.findViewById<TextView>(R.id.text_file)
         _inputPassword = view.findViewById<EditText>(R.id.input_password)
@@ -76,10 +79,8 @@ abstract class MainFragment : Fragment() {
     /**
      * onFileSelected
      */
-    fun onFileSelected(uri: Uri) {
-        _filePath = uri
-        _textFile.text = _filePath.lastPathSegment.toString()
-        _inputPassword.requestFocus()
+    open fun onFileSelected(uri: Uri) {
+       //override me
     }
 
     /**
