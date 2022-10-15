@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ abstract class JsonCryptActivity : AppCompatActivity(){
     private var TIMEOUT_WARNING_DURATION: Long = 1*60*1000  //1 min
 
     private lateinit var _timer : CountDownTimer
+    private lateinit var _text_version : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,14 @@ abstract class JsonCryptActivity : AppCompatActivity(){
             }
         }
     }
+
+    fun onCreateActionBar(){
+        //setup elements in action bar
+        if(this.actionBar == null) setSupportActionBar(findViewById(R.id.toolbar))
+        _text_version = findViewById<TextView>(R.id.toolbar_text_version)
+        _text_version.text = BuildConfig.VERSION_NAME
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
