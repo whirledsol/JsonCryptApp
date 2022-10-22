@@ -18,11 +18,15 @@
             android:exported="true">
             <intent-filter>1
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="me.whirledsol.jsoncrypt.ResultActivity" />
+        <activity android:name="me.whirledsol.jsoncrypt.ResultActivity"
+            android:theme="@style/Theme.JsonCrypt.NoActionBar"
+        />
+        <activity android:name="me.whirledsol.jsoncrypt.AboutActivity"
+            android:theme="@style/Theme.JsonCrypt.NoActionBar"
+        />
         <activity
             android:name="me.whirledsol.jsoncrypt.ExitActivity"
             android:theme="@android:style/Theme.NoDisplay"

@@ -1,14 +1,19 @@
 package me.whirledsol.jsoncrypt
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayout
 import me.whirledsol.jsoncrypt.util.CryptUtil
+
 
 abstract class JsonCryptActivity : AppCompatActivity(){
 
@@ -16,6 +21,7 @@ abstract class JsonCryptActivity : AppCompatActivity(){
     private var TIMEOUT_WARNING_DURATION: Long = 1*60*1000  //1 min
 
     private lateinit var _timer : CountDownTimer
+    private lateinit var _text_title: TextView
     private lateinit var _text_version : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +41,46 @@ abstract class JsonCryptActivity : AppCompatActivity(){
         }
     }
 
-    fun onCreateActionBar(){
+    fun onCreateActionBar(showTabs: Boolean = false){
         //setup elements in action bar
-        if(this.actionBar == null) setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        //title
+        _text_title =  findViewById<TextView>(R.id.toolbar_text_title)
+        _text_title.setOnClickListener { view ->
+            onClickTitle()
+        }
+
+        //version
         _text_version = findViewById<TextView>(R.id.toolbar_text_version)
         _text_version.text = BuildConfig.VERSION_NAME
+
+        val tabLayout = findViewById<TabLayout>(R.id.tabs)
+        if(showTabs){
+            tabLayout.visibility = View.VISIBLE
+        }
+    }
+
+
+    fun openUrl(url: String){
+        //open the supplied link the browser
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+    }
+
+    fun setPreference(id: Int, putFunction: (String)-> Unit){
+        //TODO: get working
+        val sharedPref =  getPreferences(MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putFunction(getString(id))
+            apply()
+        }
+    }
+
+    private fun onClickTitle(){
+        //title is clicked, so go back no matter where you are
+        this.finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -70,6 +111,7 @@ abstract class JsonCryptActivity : AppCompatActivity(){
             .setCancelable(false)
             .setPositiveButton("Yes") { dialog, id ->
                 CryptUtil(applicationContext).eraseAll()
+                onClose()
             }
             .setNegativeButton("No") { dialog, _ ->
                 // Dismiss the dialog

@@ -24,7 +24,7 @@ class ResultActivity : JsonCryptActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.content_result)
+        setContentView(R.layout.activity_result)
         onCreateActionBar()
 
         val json: String? = intent.extras?.getString("json")

@@ -93,7 +93,7 @@ class DecryptFragment: MainFragment() {
             navigate(json)
         }
         catch(ex: Exception){
-            _textMsg.text = "${resources.getText(R.string.message_decrypt_error)}: ${ex.message}"
+            _textMsg.text = "${resources.getText(R.string.message_decrypt_error)}" //: ${ex.message}"
             return
         }
 

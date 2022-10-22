@@ -23,7 +23,7 @@ class MainActivity : JsonCryptActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        onCreateActionBar()
+        onCreateActionBar(true)
 
         // set the references of the declared objects above
         _pager = findViewById(R.id.pager)

@@ -1,17 +1,31 @@
 <resources>
+
+    <!-- APP -->
     <string name="app_name">JsonCrypt</string>
+    <string name="app_about">Encrypt and decrypt JSON files locally on your device.</string>
+    <string name="app_disclaimers">⚠️ This app is intended as a temporary encrypted data store. Please read all our disclaimers before you begin.</string>
+
+    <!-- ELEMENTS -->
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="button_file">Select File</string>
     <string name="text_password">Password</string>
     <string name="button_encrypt">Encrypt</string>
     <string name="button_decrypt">Decrypt</string>
+    <string name="button_feedback">Feedback</string>
+    <string name="button_privacy">Privacy</string>
+    <string name="button_acknowledge">Acknowledge &amp; Continue</string>
     <string name="action_erase">Erase Files</string>
     <string name="action_close">Lock and Leave</string>
     <string name="input_searchvalues">Search values...</string>
     <string name="message_arguments_error">Please fill out everything first.</string>
     <string name="message_encrypt_error">Could not encrypt.</string>
     <string name="message_decrypt_error">Could not decrypt.</string>
+
+
+    <!-- URLS -->
+    <string name="url_github">https://github.com/whirledsol/JsonCryptApp</string>
+    <string name="url_privacy">https://github.com/whirledsol/JsonCryptApp/wiki/Privacy-Policy</string>
+
+    <!-- PREFERENCES -->
+    <string name="pref_user_acknowledged">user_acknowledged</string>
 </resources>

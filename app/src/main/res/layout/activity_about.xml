@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AboutActivity">
 
-    <include layout="@layout/toolbar" />
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_about" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
