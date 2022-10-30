@@ -3,7 +3,7 @@
 </div>
 
 # JsonCryptApp
-Encrypt and decrypt JSON content locally on your Android device.
+Encrypt and decrypt JSON files locally on your Android device.
 
 ## 📱 Download
 <a href="https://play.google.com" target="_blank"><img src="store/store.png" width="200px"/></a>

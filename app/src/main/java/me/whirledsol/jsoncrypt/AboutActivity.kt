@@ -23,10 +23,10 @@ class AboutActivity : JsonCryptActivity() {
         button_acknowledge = findViewById(R.id.button_acknowledge)
         button_feedback = findViewById(R.id.button_feedback)
         button_privacy = findViewById(R.id.button_privacy)
-
+        onSetup()
     }
 
-   fun onSetup(){
+   private fun onSetup(){
         //setup elements
         text_disclaimers.setOnClickListener{view->
             var url = getResources().getString(R.string.url_github)
@@ -45,6 +45,7 @@ class AboutActivity : JsonCryptActivity() {
            var key = getString(R.string.pref_user_acknowledged);
            PreferenceUtil(applicationContext).setPreferenceInt(key,1)
            val i = Intent(applicationContext, MainActivity::class.java)
+           i.putExtra(getString(R.string.putExtra_fragment), getString(R.string.fragment_encrypt))
            startActivity(i)
        }
     }

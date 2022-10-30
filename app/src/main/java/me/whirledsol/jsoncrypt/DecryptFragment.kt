@@ -90,7 +90,7 @@ class DecryptFragment: MainFragment() {
         try {
             var json = _cryptUtil.decryptFile(_filePath,password)
             _inputPassword.setText("") //clear ASAP
-            navigate(json)
+            navigateResult(json)
         }
         catch(ex: Exception){
             _textMsg.text = "${resources.getText(R.string.message_decrypt_error)}" //: ${ex.message}"

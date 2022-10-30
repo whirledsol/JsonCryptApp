@@ -32,13 +32,11 @@ class CryptUtil(var _context: Context) {
         return Uri.parse("${externalDir}/${filename}")
     }
     /**
-     * getEncryptedFile
+     * eraseFile
      */
-    fun eraseAll() {
-        val externalDir = _context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        externalDir!!.listFiles().forEach{
-            it.delete()
-        }
+    fun eraseFile(filePath: Uri) {
+        val file = File(filePath.path)
+        file.delete()
     }
 
     /**

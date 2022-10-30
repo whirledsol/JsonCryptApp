@@ -9,10 +9,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
-import me.whirledsol.jsoncrypt.util.CryptUtil
 
 
 abstract class JsonCryptActivity : AppCompatActivity(){
@@ -72,7 +70,9 @@ abstract class JsonCryptActivity : AppCompatActivity(){
 
     private fun onClickTitle(){
         //title is clicked, so go back no matter where you are
-        this.finish()
+        var i = Intent(applicationContext,MainActivity::class.java)
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        startActivity(i)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -86,31 +86,19 @@ abstract class JsonCryptActivity : AppCompatActivity(){
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_erase -> {onErase(); return true}
+            R.id.action_about -> {onAbout(); return true}
             R.id.action_close -> {onClose(); return true}
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun onAbout(){
+        var i = Intent(applicationContext,AboutActivity::class.java)
+        startActivity(i)
+    }
 
     fun onClose() {
         ExitActivity.exitApplication(this@JsonCryptActivity);
-    }
-
-    fun onErase(){
-        val builder = AlertDialog.Builder(this@JsonCryptActivity)
-        builder.setMessage("Are you sure you want to erase all encrypted files?")
-            .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, id ->
-                CryptUtil(applicationContext).eraseAll()
-                onClose()
-            }
-            .setNegativeButton("No") { dialog, _ ->
-                // Dismiss the dialog
-                dialog.dismiss()
-            }
-        val alert = builder.create()
-        alert.show()
     }
 
 

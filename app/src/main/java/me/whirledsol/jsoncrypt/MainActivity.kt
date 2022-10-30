@@ -16,8 +16,8 @@ class MainActivity : JsonCryptActivity() {
     private lateinit var _tabLayout: TabLayout  // creating object of TabLayout
     private val _pages by lazy {
         arrayOf(
-            Pair("Decrypt",DecryptFragment()),
-            Pair("Encrypt",EncryptFragment()),
+            Pair(getString(R.string.fragment_decrypt),DecryptFragment()),
+            Pair(getString(R.string.fragment_encrypt),EncryptFragment()),
         )
     }
 
@@ -35,6 +35,12 @@ class MainActivity : JsonCryptActivity() {
         _pager = findViewById(R.id.pager)
         _tabLayout = findViewById(R.id.tabs)
 
+        onSetup()
+
+    }
+
+
+    private fun onSetup(){
         _pager.adapter =  ScreenSlidePagerAdapter(this)
 
         // bind the viewPager with the TabLayout.
@@ -42,10 +48,16 @@ class MainActivity : JsonCryptActivity() {
             tab.text = _pages[position].first
         }.attach()
 
+        //navigate to the tab passed in, if passed in
+        val initFragment: String? = intent.extras?.getString(getString(R.string.putExtra_fragment))
+        if(initFragment != null){
+            _pager.currentItem = _pages.indexOfFirst{ x->x.first == initFragment }
+        }
     }
-
-    fun confirmAcknowledgment(){
-        //confirmAcknowledgment
+    /**
+     * confirmAcknowledgment
+     */
+    private fun confirmAcknowledgment(){
         val key = getString(R.string.pref_user_acknowledged)
         val acknowledged = PreferenceUtil(applicationContext).getPreferenceInt(key)
         if(acknowledged != 1) {
