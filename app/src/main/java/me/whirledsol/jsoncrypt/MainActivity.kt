@@ -1,5 +1,6 @@
 package me.whirledsol.jsoncrypt
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -7,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import me.whirledsol.jsoncrypt.util.PreferenceUtil
 
 class MainActivity : JsonCryptActivity() {
 
@@ -22,6 +24,10 @@ class MainActivity : JsonCryptActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //confirm we are allowed to be here
+        confirmAcknowledgment()
+
         setContentView(R.layout.activity_main)
         onCreateActionBar(true)
 
@@ -29,10 +35,7 @@ class MainActivity : JsonCryptActivity() {
         _pager = findViewById(R.id.pager)
         _tabLayout = findViewById(R.id.tabs)
 
-
         _pager.adapter =  ScreenSlidePagerAdapter(this)
-
-
 
         // bind the viewPager with the TabLayout.
         TabLayoutMediator(_tabLayout, _pager) { tab, position ->
@@ -41,6 +44,16 @@ class MainActivity : JsonCryptActivity() {
 
     }
 
+    fun confirmAcknowledgment(){
+        //confirmAcknowledgment
+        val key = getString(R.string.pref_user_acknowledged)
+        val acknowledged = PreferenceUtil(applicationContext).getPreferenceInt(key)
+        if(acknowledged != 1) {
+            val i = Intent(applicationContext, AboutActivity::class.java)
+            startActivity(i)
+            return
+        }
+    }
 
     override fun onBackPressed() {
         if (_pager.currentItem == 0) {

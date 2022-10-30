@@ -1,8 +1,10 @@
 package me.whirledsol.jsoncrypt
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import me.whirledsol.jsoncrypt.util.PreferenceUtil
 
 
 class AboutActivity : JsonCryptActivity() {
@@ -40,8 +42,10 @@ class AboutActivity : JsonCryptActivity() {
        }
 
        button_acknowledge.setOnClickListener{view->
-           var url = getResources().getString(R.string.url_privacy)
-           openUrl(url)
+           var key = getString(R.string.pref_user_acknowledged);
+           PreferenceUtil(applicationContext).setPreferenceInt(key,1)
+           val i = Intent(applicationContext, MainActivity::class.java)
+           startActivity(i)
        }
     }
 

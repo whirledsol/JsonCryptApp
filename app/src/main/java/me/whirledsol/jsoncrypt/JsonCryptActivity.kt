@@ -69,14 +69,6 @@ abstract class JsonCryptActivity : AppCompatActivity(){
         startActivity(i)
     }
 
-    fun setPreference(id: Int, putFunction: (String)-> Unit){
-        //TODO: get working
-        val sharedPref =  getPreferences(MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
-            putFunction(getString(id))
-            apply()
-        }
-    }
 
     private fun onClickTitle(){
         //title is clicked, so go back no matter where you are
