@@ -7,6 +7,7 @@ import android.os.CountDownTimer
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,9 @@ abstract class JsonCryptActivity : AppCompatActivity(){
                 onClose()
             }
         }
+
+        //prevent screenshot
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     fun onCreateActionBar(showTabs: Boolean = false){
