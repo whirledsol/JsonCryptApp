@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="me.whirledsol.jsoncrypt.MainActivity">
     <item
+        android:id="@+id/action_erase"
+        android:orderInCategory="700"
+        android:title="@string/action_erase"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_about"
         android:orderInCategory="800"
         android:title="@string/action_about"

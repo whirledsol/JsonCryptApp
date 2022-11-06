@@ -1,14 +1,18 @@
 package me.whirledsol.jsoncrypt
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import me.whirledsol.jsoncrypt.util.CryptUtil
+import com.google.android.material.tabs.TabLayout
+
 
 abstract class JsonCryptActivity : AppCompatActivity(){
 
@@ -16,6 +20,7 @@ abstract class JsonCryptActivity : AppCompatActivity(){
     private var TIMEOUT_WARNING_DURATION: Long = 1*60*1000  //1 min
 
     private lateinit var _timer : CountDownTimer
+    private lateinit var _text_title: TextView
     private lateinit var _text_version : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +38,45 @@ abstract class JsonCryptActivity : AppCompatActivity(){
                 onClose()
             }
         }
+
+        //prevent screenshot
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,WindowManager.LayoutParams.FLAG_SECURE);
     }
 
-    fun onCreateActionBar(){
+    fun onCreateActionBar(showTabs: Boolean = false){
         //setup elements in action bar
-        if(this.actionBar == null) setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        //title
+        _text_title =  findViewById<TextView>(R.id.toolbar_text_title)
+        _text_title.setOnClickListener { view ->
+            onClickTitle()
+        }
+
+        //version
         _text_version = findViewById<TextView>(R.id.toolbar_text_version)
         _text_version.text = BuildConfig.VERSION_NAME
+
+        val tabLayout = findViewById<TabLayout>(R.id.tabs)
+        if(showTabs){
+            tabLayout.visibility = View.VISIBLE
+        }
+    }
+
+
+    fun openUrl(url: String){
+        //open the supplied link the browser
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+    }
+
+
+    private fun onClickTitle(){
+        //title is clicked, so go back no matter where you are
+        var i = Intent(applicationContext,MainActivity::class.java)
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(i)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,30 +90,19 @@ abstract class JsonCryptActivity : AppCompatActivity(){
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_erase -> {onErase(); return true}
+            R.id.action_about -> {onAbout(); return true}
             R.id.action_close -> {onClose(); return true}
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun onAbout(){
+        var i = Intent(applicationContext,AboutActivity::class.java)
+        startActivity(i)
+    }
 
     fun onClose() {
         ExitActivity.exitApplication(this@JsonCryptActivity);
-    }
-
-    fun onErase(){
-        val builder = AlertDialog.Builder(this@JsonCryptActivity)
-        builder.setMessage("Are you sure you want to erase all encrypted files?")
-            .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, id ->
-                CryptUtil(applicationContext).eraseAll()
-            }
-            .setNegativeButton("No") { dialog, _ ->
-                // Dismiss the dialog
-                dialog.dismiss()
-            }
-        val alert = builder.create()
-        alert.show()
     }
 
 

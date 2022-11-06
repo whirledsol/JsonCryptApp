@@ -93,9 +93,10 @@ abstract class MainFragment : Fragment() {
     /**
      * navigate
      */
-    fun navigate(data: String) {
+    fun navigateResult(data: String) {
         val i = Intent(activity, ResultActivity::class.java)
-        i.putExtra("json", data)
+        i.putExtra(getString(R.string.putExtra_json), data)
+        i.putExtra(getString(R.string.putExtra_filePath),_filePath.toString())
         startActivity(i)
     }
 

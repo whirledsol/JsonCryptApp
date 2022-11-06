@@ -1,5 +1,6 @@
 package me.whirledsol.jsoncrypt
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -7,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import me.whirledsol.jsoncrypt.util.PreferenceUtil
 
 class MainActivity : JsonCryptActivity() {
 
@@ -14,33 +16,56 @@ class MainActivity : JsonCryptActivity() {
     private lateinit var _tabLayout: TabLayout  // creating object of TabLayout
     private val _pages by lazy {
         arrayOf(
-            Pair("Decrypt",DecryptFragment()),
-            Pair("Encrypt",EncryptFragment()),
+            Pair(getString(R.string.fragment_decrypt),DecryptFragment()),
+            Pair(getString(R.string.fragment_encrypt),EncryptFragment()),
         )
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //confirm we are allowed to be here
+        confirmAcknowledgment()
+
         setContentView(R.layout.activity_main)
-        onCreateActionBar()
+        onCreateActionBar(true)
 
         // set the references of the declared objects above
         _pager = findViewById(R.id.pager)
         _tabLayout = findViewById(R.id.tabs)
 
+        onSetup()
 
+    }
+
+
+    private fun onSetup(){
         _pager.adapter =  ScreenSlidePagerAdapter(this)
-
-
 
         // bind the viewPager with the TabLayout.
         TabLayoutMediator(_tabLayout, _pager) { tab, position ->
             tab.text = _pages[position].first
         }.attach()
 
+        //navigate to the tab passed in, if passed in
+        val initFragment: String? = intent.extras?.getString(getString(R.string.putExtra_fragment))
+        if(initFragment != null){
+            _pager.currentItem = _pages.indexOfFirst{ x->x.first == initFragment }
+        }
     }
-
+    /**
+     * confirmAcknowledgment
+     */
+    private fun confirmAcknowledgment(){
+        val key = getString(R.string.pref_user_acknowledged)
+        val acknowledged = PreferenceUtil(applicationContext).getPreferenceInt(key)
+        if(acknowledged != 1) {
+            val i = Intent(applicationContext, AboutActivity::class.java)
+            startActivity(i)
+            return
+        }
+    }
 
     override fun onBackPressed() {
         if (_pager.currentItem == 0) {

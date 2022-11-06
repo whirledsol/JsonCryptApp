@@ -31,6 +31,9 @@ class FileUtil(var _context: Context) {
         } else if (uriString.startsWith("file://")) {
             displayName = myFile.getName();
         }
+        else {
+            displayName = uri.lastPathSegment
+        }
 
         if(!includeExt) {
             displayName = if(displayName?.contains(".") == true) displayName.substring(0, displayName.lastIndexOf('.')) else displayName
