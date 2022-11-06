@@ -49,7 +49,7 @@ class ResultActivity : JsonCryptActivity() {
         //putExtras _fileName
         val filePath =  intent.extras?.getString(getString(R.string.putExtra_filePath)) ?: ""
         if(filePath == "") {
-            throw Exception("Expected fileName")
+            throw Exception("Expected filePath")
         }
         _filePath = Uri.parse(filePath)
 

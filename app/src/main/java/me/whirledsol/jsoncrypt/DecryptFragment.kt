@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import me.whirledsol.jsoncrypt.util.FileUtil
 import android.R as androidR
 
 
@@ -71,7 +72,7 @@ class DecryptFragment: MainFragment() {
      */
     override fun onFileSelected(uri: Uri) {
         _filePath = uri
-        _textFile.text = _filePath.lastPathSegment.toString()
+        _textFile.text = FileUtil(requireContext()).resolveFilenameFromUri(_filePath)
         _inputPassword.requestFocus()
     }
 

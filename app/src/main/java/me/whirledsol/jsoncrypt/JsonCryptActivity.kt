@@ -75,7 +75,7 @@ abstract class JsonCryptActivity : AppCompatActivity(){
     private fun onClickTitle(){
         //title is clicked, so go back no matter where you are
         var i = Intent(applicationContext,MainActivity::class.java)
-        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(i)
     }
 

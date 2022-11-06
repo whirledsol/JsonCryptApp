@@ -6,7 +6,7 @@
     <string name="app_disclaimers">⚠️ This app is intended as a temporary encrypted data store. <u>Please read all our disclaimers before you begin.</u></string>
 
     <!-- CONTENT -->
-    <string name="content_erase_confirm">"Are you sure you want to erase {0}?"</string>
+    <string name="content_erase_confirm">Are you sure you want to erase %s?</string>
 
     <!-- FRAGMENTS -->
     <string name="fragment_decrypt">Decrypt</string>
